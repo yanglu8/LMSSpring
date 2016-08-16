@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -82,13 +83,11 @@ public class HomeController {
 		logger.info("hitting the viewAuthors");
 		return "addauthor";
 	}
-	
 	@RequestMapping(value = "/editborrower", method = RequestMethod.GET)
 	public String editborrower(Model model) throws SQLException {
 		logger.info("editborrower");
 		return "editborrower";
 	}
-	
 	@RequestMapping(value = "/addpublisher", method = RequestMethod.GET)
 	public String addPublisher(Model model) throws SQLException {
 		logger.info("addpublisher");
@@ -141,7 +140,6 @@ public class HomeController {
 		logger.info("editauthor");
 		return "editpublisher";
 	}
-	
 	@RequestMapping(value = "/editBorrower", method = RequestMethod.POST)
 	public String editAuthor(@RequestParam("borrowerName") String borrowerName,
 			@RequestParam("borrowerId") Integer borrowerID, 
@@ -163,12 +161,7 @@ public class HomeController {
 		model.addAttribute("action", "edit");
 		return "viewborrowers";
 		
-	}
-	
-	
-	
-	
-	
+	}	
 	@RequestMapping(value = "/editAuthor", method = RequestMethod.POST)
 	public String editAuthor(@RequestParam("authorName") String authorName,
 			@RequestParam("authorId") Integer authorId, 
@@ -241,8 +234,6 @@ public class HomeController {
 				genres.add(genre);
 			}
 		}
-//		System.out.println("authorsize"+authors.size());
-//		System.out.println("genresize"+genres.size());
 		book.setBookId(bookId);
 		book.setAuthors(authors);
 		book.setGenres(genres);
@@ -258,8 +249,6 @@ public class HomeController {
 		model.addAttribute("action", "edit");
 		return "viewbooks";
 	}
-	
-	
 	@RequestMapping(value = "/viewauthors", method = RequestMethod.GET)
 	public String viewAuthors(Model model) throws SQLException {
 		logger.info("viewauthors");
@@ -298,8 +287,7 @@ public class HomeController {
 	@RequestMapping(value = "/addbranch", method = RequestMethod.GET)
 	public String addbranch(Model model) throws SQLException{
 		return "addbranch";
-	}
-	
+	}	
 	@RequestMapping(value = "/editbookcopy", method = RequestMethod.GET)
 	public String editbookcopy(Model model) throws SQLException{
 		return "editbookcopy";
@@ -338,7 +326,6 @@ public class HomeController {
 		model.addAttribute("action", "add");
 		return "viewauthors";
 	}
-	
 	@RequestMapping(value = "/addBranch", method = RequestMethod.POST)
 	public String addAuthor(@RequestParam("branchName") String branchName,
 			@RequestParam(value = "branchAddress", required=false) String branchAddress,
@@ -367,8 +354,6 @@ public class HomeController {
 				for(int j = 1;j<authorId[i].split(" ").length;j++){
 					authorName1+= authorId[i].split(" ")[j];
 				}
-//				System.out.println("id:"+authorId);
-//				System.out.println("name:"+authorId);
 				Author authornew = new Author();
 				authornew.setAuthorID(authorId1);
 				authornew.setAuthorName(authorName1);
@@ -383,16 +368,12 @@ public class HomeController {
 				for(int j = 1;j<genreId[i].split(" ").length;j++){
 					genreName+= genreId[i].split(" ")[j];
 				}
-//				System.out.println("id:"+genreId);
-//				System.out.println("name:"+genreId);
 				Genre genre = new Genre();
 				genre.setGenreId(genreId1);
 				genre.setGenreName(genreName);
 				genres.add(genre);
 			}
 		}
-//		System.out.println("authorsize"+authors.size());
-//		System.out.println("genresize"+genres.size());
 		book.setAuthors(authors);
 		book.setGenres(genres);
 		book.setTitle(bookName);
@@ -447,7 +428,6 @@ public class HomeController {
 		model.addAttribute("action", "delete" );
 		return "viewpublishers";
 	}
-
 	@RequestMapping(value = "/librarianmain", method = RequestMethod.GET)
 	public String librarianmain(Model model){
 		model.addAttribute("action", "view");
@@ -543,8 +523,7 @@ public class HomeController {
 		model.addAttribute("cardNo", cardNo);
 		model.addAttribute("action", i);
 		return "borrowermain";
-	}
-	
+	}	
 	@RequestMapping(value = "/varifyCardReserve", method = RequestMethod.GET)
 	public String varifyCardReserve (
 			@RequestParam  ("bookId") Integer bookId,
@@ -567,7 +546,6 @@ public class HomeController {
 		model.addAttribute("cardNo", cardNo);
 		return "borrowermain";
 	}
-	
 	@RequestMapping(value = "/reserveBook", method = RequestMethod.GET)
 	public String reserveBook (
 			@RequestParam ("cardNo") Integer cardNo,
@@ -593,9 +571,7 @@ public class HomeController {
 		model.addAttribute("cardNo", cardNo);
 		model.addAttribute("action", i);
 		return "borrowermain";
-	}
-	
-	
+	}	
 	@RequestMapping(value = "/borrowBook", method = RequestMethod.GET)
 	public String borrowBook (
 			@RequestParam ("cardNo") Integer cardNo,
@@ -621,7 +597,6 @@ public class HomeController {
 		model.addAttribute("action", i);
 		return "borrowermain";
 	}
-
 	@RequestMapping(value = "/editCopies", method = RequestMethod.POST)
 	public String editCopies(
 			@RequestParam("branchId") Integer branchId,
@@ -645,8 +620,7 @@ public class HomeController {
 		model.addAttribute("branchId", branchId);
 		model.addAttribute("action","add");
 		return "librarianmain";
-	}
-	
+	}	
 	@RequestMapping(value = "/editBranch", method = RequestMethod.POST)
 	public String editCopies(
 			@RequestParam("branchId") Integer branchId,
@@ -667,9 +641,7 @@ public class HomeController {
 		model.addAttribute("branchId", branchId);
 		model.addAttribute("action", "edit");
 		return "librarianmain";
-	}
-	
-	
+	}	
 	@RequestMapping(value = "/overrideduedate", method = RequestMethod.GET)
 	public String overrideduedate(
 			Model model) throws SQLException {
@@ -678,7 +650,6 @@ public class HomeController {
 		//model.addAttribute("action", "delete" );
 		return "overrideduedate";
 	}
-	
 	@RequestMapping(value = "/overridedue", method = RequestMethod.GET)
 	public String overridedue(
 			Model model) throws SQLException {
@@ -687,7 +658,6 @@ public class HomeController {
 		//model.addAttribute("action", "delete" );
 		return "overridedue";
 	}
-	
 	@RequestMapping(value = "/overrideDue", method = RequestMethod.POST)
 	public String overrideDue(
 			@RequestParam("datepicker") String date,
